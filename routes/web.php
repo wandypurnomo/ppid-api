@@ -43,3 +43,5 @@ $router->group(["prefix"=>"profile"],function($router){
     $router->get("lhkpn","ProfileController@getLhkpn");
 });
 
+$router->post("permohonan-informasi/submit","PermohonanController@submitPermohonanInformasi");
+
