@@ -28,7 +28,7 @@ class SendEmailResponse
         $data = $event->data;
 
         Mail::send("email.response_permohonan_informasi",["code"=>$data->reg_number],function($msg) use ($data){
-            $msg->to($data->pengguna_email,$data->pengguna_nama)->from("noreply@magelangkab.go.id")->subject("Kode tracking");
+            $msg->to($data->pengguna_email)->from("noreply@magelangkab.go.id")->subject("Kode tracking");
         });
     }
 }
