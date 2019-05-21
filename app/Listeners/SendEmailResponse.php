@@ -3,6 +3,8 @@
 namespace App\Listeners;
 
 use App\Events\PermohonanSubmited;
+use Illuminate\Mail\PendingMail;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 
 class SendEmailResponse
@@ -26,9 +28,9 @@ class SendEmailResponse
     public function handle(PermohonanSubmited $event)
     {
         $data = $event->data;
-
+        Log::debug($data->pemohon_email);
         Mail::send("email.response_permohonan_informasi",["code"=>$data->reg_number],function($msg) use ($data){
-            $msg->to($data->pengguna_email)->from("noreply@magelangkab.go.id")->subject("Kode tracking");
+            $msg->to($data->pemohon_email)->from("noreply@magelangkab.go.id")->subject("Kode tracking");
         });
     }
 }
