@@ -46,6 +46,9 @@ $app->singleton(
     App\Console\Kernel::class
 );
 
+$app->configure("auth");
+$app->configure("jwt");
+$app->configure("mail");
 /*
 |--------------------------------------------------------------------------
 | Register Middleware
