@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Constants\Profile;
 use App\Models\CompanyProfile;
 use App\Models\Faq;
+use App\Models\Hukum;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -53,6 +54,28 @@ class ProfileController extends Controller
     public function getLhkpn(CompanyProfile $profile){
         $profile = $profile->newQuery();
         $profile = $profile->findOrFail(Profile::LHKPN);
-        return response()->success("OK",JsonResponse::HTTP_OK,["lhkpn"=>$profile]);
+
+        preg_match_all('#\bhttps?://[^,\s()<>]+(?:\([\w\d]+\)|([^,[:punct:]\s]|/))#', $profile->konten, $match);
+
+        $data = [
+            "id" => $profile->id,
+            "judul" => $profile->judul,
+            "konten" => is_array($match) && count($match) > 0 ? $match[0]:"",
+            "created_at" => $profile->created_at,
+            "updated_at" => $profile->updated_at,
+        ];
+        return response()->success("OK",JsonResponse::HTTP_OK,["lhkpn"=>$data]);
+    }
+
+    public function getHukum(Hukum $hukum){
+        $hukum = $hukum->newQuery();
+
+        if(!$hukum->exists()){
+            return response()->error("Not Found",JsonResponse::HTTP_NOT_FOUND);
+        }
+
+        $hukum = $hukum->get();
+
+        return response()->success("OK",JsonResponse::HTTP_OK,["hukum"=>$hukum]);
     }
 }

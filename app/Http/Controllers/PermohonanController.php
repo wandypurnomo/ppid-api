@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Events\PermohonanSubmited;
 use App\Models\PermohonanInformasi;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class PermohonanController extends Controller
@@ -32,5 +33,33 @@ class PermohonanController extends Controller
         $pemohon = PermohonanInformasi::storePermohonan($request);
         event(new PermohonanSubmited($pemohon));
         return response()->success();
+    }
+
+    public function tracking(Request $request, PermohonanInformasi $informasi){
+        $this->validate($request,[
+            "email" => "required|email",
+            "reg_number" => "required|exists:permohonan,reg_number"
+        ]);
+
+        $info = $informasi
+                    ->newQuery()
+                    ->where("pemohon_email",$request->json("email"))
+                    ->where("reg_number",$request->json("reg_number"))
+                    ->firstOr(["*"],function(){
+                        return abort(404);
+                    });
+
+        $latest = $info->last_status();
+        $history = $info->history();
+
+        $data = [
+            "status" => [
+                "latest" => $latest,
+                "history" => $history
+            ]
+        ];
+
+        return response()->success("OK",JsonResponse::HTTP_OK,$data);
+
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Constants\StatusPermohonan;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
@@ -20,6 +21,18 @@ class PermohonanInformasi extends Model
         ];
 
         return self::create($request->only($fields));
+    }
+
+    public function status_logs(){
+        return $this->hasMany(StatusLog::class,"permohonan_id")->where("type","permohonan")->orderBy("created_at","desc");
+    }
+
+    public function last_status(){
+        return $this->status_logs()->latest()->first();
+    }
+
+    public function history(){
+        return $this->status_logs;
     }
 
     protected static function boot()

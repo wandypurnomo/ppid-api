@@ -41,7 +41,9 @@ $router->group(["prefix"=>"profile"],function($router){
     $router->get("pejabat","ProfileController@getPejabat");
     $router->get("visi-misi","ProfileController@getVisiMisi");
     $router->get("lhkpn","ProfileController@getLhkpn");
+    $router->get("hukum","ProfileController@getHukum");
 });
 
 $router->post("permohonan-informasi/submit","PermohonanController@submitPermohonanInformasi");
+$router->post("permohonan-informasi/tracking","PermohonanController@tracking");
 
