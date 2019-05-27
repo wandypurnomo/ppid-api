@@ -84,6 +84,12 @@ class PublicInformationController extends Controller
             $type->where("jenis_id",$request->get("type_id"));
         }
 
+        if($request->has("opd_id") && $request->get("opd_id") != ""){
+            $type->whereHas("public_information",function($pi) use ($request){
+                $pi->where("opd_id",$request->get("opd_id"));
+            });
+        }
+
 
         if(!$type->exists()){
             return response()->error("Not Found",JsonResponse::HTTP_NOT_FOUND);
