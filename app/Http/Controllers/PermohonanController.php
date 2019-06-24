@@ -67,7 +67,6 @@ class PermohonanController extends Controller
 
     public function submitPermohonanKeberatan(Request $request){
         $this->validate($request,[
-            "no_pendaftaran_permohonan_informasi" => "required",
             "tujuan_penggunaan_informasi" => "required",
             "nama_pemohon" => "required",
             "alamat_pemohon" => "required",
