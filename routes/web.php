@@ -47,3 +47,6 @@ $router->group(["prefix"=>"profile"],function($router){
 $router->post("permohonan-informasi/submit","PermohonanController@submitPermohonanInformasi");
 $router->post("permohonan-informasi/tracking","PermohonanController@tracking");
 
+$router->post("permohonan-keberatan-informasi/submit","PermohonanController@submitPermohonanKeberatan");
+$router->post("permohonan-keberatan-informasi/tracking","PermohonanController@trackingKeberatan");
+
