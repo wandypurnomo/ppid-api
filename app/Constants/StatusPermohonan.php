@@ -2,9 +2,9 @@
 
 class StatusPermohonan{
     const DIPENUHI = 1;
-    const DIPENUHI_SEBAGIAN = 2;
-    const DITOLAK = 3;
-    const SENGKETA_INFORMASI = 4;
+    const DITOLAK = 2;
+    const SENGKETA_INFORMASI = 3;
+    const DIPENUHI_SEBAGIAN = 4;
 
     public static function getOptionArray(){
         return [
