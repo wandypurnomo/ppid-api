@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Keberatan extends Model
 {
     protected $table = "keberatan";
+    protected $guarded =  ["id"];
 
     public function opd(){
         return $this->belongsTo(Opd::class);
