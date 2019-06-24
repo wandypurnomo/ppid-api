@@ -34,7 +34,7 @@ class PermohonanController extends Controller
 
         $pemohon = PermohonanInformasi::storePermohonan($request);
         event(new PermohonanSubmited($pemohon));
-        return response()->success();
+        return response()->success("OK",JsonResponse::HTTP_OK,["code" => $pemohon->reg_number]);
     }
 
     public function tracking(Request $request, PermohonanInformasi $informasi){
@@ -78,13 +78,13 @@ class PermohonanController extends Controller
         ]);
 
         $request->merge(["no_registrasi_keberatan" => rand(10000,99999)]);
-        Keberatan::create($request->only([
+        $x = Keberatan::create($request->only([
             "no_registrasi_keberatan","no_pendaftaran_permohonan_informasi","tujuan_penggunaan_informasi",
             "nama_pemohon","alamat_pemohon","pekerjaan_pemohon","phone_pemohon","alasan_id",
             "opd_id","nama_kuasa_pemohon","alamat_kuasa_pemohon","kasus_posisi","email"
         ]));
 
-        return response()->success();
+        return response()->success("OK",JsonResponse::HTTP_OK,["code" => $x->no_registrasi_keberatan]);
     }
 
     public function trackingKeberatan(Request $request, Keberatan $keberatan){
