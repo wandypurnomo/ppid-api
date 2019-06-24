@@ -87,7 +87,7 @@ class ProfileController extends Controller
     }
 
     public function getOption($key){
-        $x = Option::whereKey($key)->firstOrFail();
+        $x = Option::where("key",$key)->firstOrFail();
         return response()->success("OK",JsonResponse::HTTP_OK,$x);
     }
 }
