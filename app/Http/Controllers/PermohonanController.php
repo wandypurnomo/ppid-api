@@ -81,7 +81,7 @@ class PermohonanController extends Controller
         $x = Keberatan::create($request->only([
             "no_registrasi_keberatan","no_pendaftaran_permohonan_informasi","tujuan_penggunaan_informasi",
             "nama_pemohon","alamat_pemohon","pekerjaan_pemohon","phone_pemohon","alasan_id",
-            "opd_id","nama_kuasa_pemohon","alamat_kuasa_pemohon","kasus_posisi","email"
+            "opd_id","nama_kuasa_pemohon","alamat_kuasa_pemohon","kasus_posisi","email","phone_kuasa_pemohon"
         ]));
 
         return response()->success("OK",JsonResponse::HTTP_OK,["code" => $x->no_registrasi_keberatan]);
