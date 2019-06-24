@@ -34,6 +34,7 @@ $router->post("contact-us/send","ContactController@send");
 
 $router->get("faq","ProfileController@faq");
 $router->get("options","ProfileController@getOptions");
+$router->get("options/{key}","ProfileController@getOption");
 
 $router->group(["prefix"=>"profile"],function($router){
     $router->get("profile-ppid","ProfileController@getProfilePpid");

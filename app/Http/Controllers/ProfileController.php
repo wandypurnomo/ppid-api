@@ -85,4 +85,9 @@ class ProfileController extends Controller
         $x = Option::all();
         return response()->success("OK",JsonResponse::HTTP_OK,$x);
     }
+
+    public function getOption($key){
+        $x = Option::whereKey($key)->firstOrFail();
+        return response()->success("OK",JsonResponse::HTTP_OK,$x);
+    }
 }
