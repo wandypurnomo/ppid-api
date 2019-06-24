@@ -6,8 +6,10 @@ use App\Constants\Profile;
 use App\Models\CompanyProfile;
 use App\Models\Faq;
 use App\Models\Hukum;
+use App\Models\Option;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ProfileController extends Controller
 {
@@ -77,5 +79,10 @@ class ProfileController extends Controller
         $hukum = $hukum->get();
 
         return response()->success("OK",JsonResponse::HTTP_OK,["hukum"=>$hukum]);
+    }
+
+    public function getOptions(){
+        $x = Option::all();
+        return response()->success("OK",JsonResponse::HTTP_OK,$x);
     }
 }

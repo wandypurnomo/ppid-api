@@ -33,6 +33,7 @@ $router->get("duration","PublicInformationController@getDuration");
 $router->post("contact-us/send","ContactController@send");
 
 $router->get("faq","ProfileController@faq");
+$router->get("options","ProfileController@getOptions");
 
 $router->group(["prefix"=>"profile"],function($router){
     $router->get("profile-ppid","ProfileController@getProfilePpid");
