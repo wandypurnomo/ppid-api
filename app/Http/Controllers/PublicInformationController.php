@@ -157,7 +157,8 @@ class PublicInformationController extends Controller
             (SELECT COUNT(*) from permohonan where status=".StatusPermohonan::DIPENUHI." and YEAR(created_at) = year) as dipenuhi,
             (SELECT COUNT(*) from permohonan where status=".StatusPermohonan::DITOLAK." and YEAR(created_at) = year) as ditolak,
             (SELECT COUNT(*) from permohonan where status=".StatusPermohonan::SENGKETA_INFORMASI." and YEAR(created_at) = year) as sengketa_informasi,
-            (SELECT COUNT(*) from permohonan where status=".StatusPermohonan::DIPENUHI_SEBAGIAN." and YEAR(created_at) = year) as dipenuhi_sebagian");
+            (SELECT COUNT(*) from permohonan where status=".StatusPermohonan::DIPENUHI_SEBAGIAN." and YEAR(created_at) = year) as dipenuhi_sebagian,
+            (SELECT COUNT(*) from permohonan where YEAR(created_at) = year) as total_permohonan");
         $x->groupBy("year");
 
         $x = $x->get();
