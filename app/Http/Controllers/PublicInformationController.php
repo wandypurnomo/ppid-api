@@ -178,4 +178,8 @@ class PublicInformationController extends Controller
 
         return response()->success("OK",JsonResponse::HTTP_OK,["sop"=>$x->get()]);
     }
+
+    public function statusPermohonan(){
+        return response()->success("OK",JsonResponse::HTTP_OK,["status_permohonan"=>StatusPermohonan::getOptionArray()]);
+    }
 }

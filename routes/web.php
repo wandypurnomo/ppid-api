@@ -49,6 +49,7 @@ $router->group(["prefix"=>"profile"],function($router){
 
 $router->get("sop","PublicInformationController@getSop");
 $router->get("register-summary","PublicInformationController@registrationSummary");
+$router->get("status-permohonan","PublicInformationController@statusPermohonan");
 
 $router->post("permohonan-informasi/submit","PermohonanController@submitPermohonanInformasi");
 $router->post("permohonan-informasi/tracking","PermohonanController@tracking");
