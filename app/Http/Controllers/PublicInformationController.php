@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Constants\StatusPermohonan;
 use App\Models\DocumentType;
 use App\Models\Duration;
 use App\Models\Opd;
+use App\Models\PermohonanInformasi;
 use App\Models\PublicInformation;
+use App\Models\Sop;
 use App\Models\SubType;
 use App\Models\Type;
 use Illuminate\Http\JsonResponse;
@@ -134,5 +137,45 @@ class PublicInformationController extends Controller
         $duration = $duration->get();
 
         return response()->success("OK",JsonResponse::HTTP_OK,["durations"=>$duration]);
+    }
+
+    public function getYear(PublicInformation $information){
+        $x = $information->newQuery()->groupBy("tahun");
+        if($x->count() == 0){
+            return abort(404);
+        }
+
+        return response()->success("OK",JsonResponse::HTTP_OK,["years"=>$x->pluck("tahun")]);
+
+    }
+
+    public function registrationSummary(PermohonanInformasi $informasi){
+        $x = $informasi->newQuery();
+
+        $x->selectRaw(
+            "YEAR(created_at) year,
+            (SELECT COUNT(*) from permohonan where status=".StatusPermohonan::DIPENUHI." and YEAR(created_at) = year) as dipenuhi,
+            (SELECT COUNT(*) from permohonan where status=".StatusPermohonan::DITOLAK." and YEAR(created_at) = year) as ditolak,
+            (SELECT COUNT(*) from permohonan where status=".StatusPermohonan::SENGKETA_INFORMASI." and YEAR(created_at) = year) as sengketa_informasi,
+            (SELECT COUNT(*) from permohonan where status=".StatusPermohonan::DIPENUHI_SEBAGIAN." and YEAR(created_at) = year) as dipenuhi_sebagian");
+        $x->groupBy("year");
+
+        $x = $x->get();
+
+        if($x->count() == 0){
+            abort(404);
+        }
+
+        return response()->success("OK",JsonResponse::HTTP_OK,["summary" => $x]);
+    }
+
+    public function getSop(Sop $sop){
+        $x = $sop->newQuery();
+
+        if($x->count() == 0){
+            return abort(404);
+        }
+
+        return response()->success("OK",JsonResponse::HTTP_OK,["sop"=>$x->get()]);
     }
 }

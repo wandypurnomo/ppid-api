@@ -30,6 +30,7 @@ $router->get("sub-type","PublicInformationController@getSubType");
 $router->get("opd","PublicInformationController@getOpd");
 $router->get("doc-type","PublicInformationController@getDocType");
 $router->get("duration","PublicInformationController@getDuration");
+$router->get("year","PublicInformationController@getYear");
 $router->post("contact-us/send","ContactController@send");
 
 $router->get("faq","ProfileController@faq");
@@ -45,6 +46,9 @@ $router->group(["prefix"=>"profile"],function($router){
     $router->get("lhkpn","ProfileController@getLhkpn");
     $router->get("hukum","ProfileController@getHukum");
 });
+
+$router->get("sop","PublicInformationController@getSop");
+$router->get("register-summary","PublicInformationController@registrationSummary");
 
 $router->post("permohonan-informasi/submit","PermohonanController@submitPermohonanInformasi");
 $router->post("permohonan-informasi/tracking","PermohonanController@tracking");
