@@ -12,6 +12,6 @@ class Sop extends Model
     protected $appends = ["file_url"];
 
     public function getFileUrlAttribute(){
-        return env("WEB_URL").DIRECTORY_SEPARATOR.$this->attributes["sop_file"];
+        return env("PUBLIC_URL").DIRECTORY_SEPARATOR.$this->attributes["sop_file"];
     }
 }
