@@ -13,6 +13,7 @@ use App\Models\SubType;
 use App\Models\Type;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PublicInformationController extends Controller
 {
@@ -183,5 +184,36 @@ class PublicInformationController extends Controller
 
     public function statusPermohonan(){
         return response()->success("OK",JsonResponse::HTTP_OK,["status_permohonan"=>StatusPermohonan::getOptionArray()]);
+    }
+
+    public function getStatistic(){
+        $arr = [
+            "jumlah_dokumen" => PublicInformation::all()->count(),
+            "jumlah_permohonan" => PermohonanInformasi::all()->count(),
+            "jumlah_unduhan" => PublicInformation::all()->sum("downloaded"),
+            "jumlah_pengunjung" => (int) DB::table("visited")->sum("visit")
+        ];
+
+        return response()->success("OK",JsonResponse::HTTP_OK,["statistik"=>$arr]);
+    }
+
+    public function getLatestInfo(PublicInformation $information){
+        $x = $information->newQuery()->orderBy("upload_date","desc")->take(5)->get();
+
+        if($x->count() == 0){
+            abort(404);
+        }
+
+        return response()->success("OK",JsonResponse::HTTP_OK,["latest"=>$x]);
+    }
+
+    public function getMostInfo(PublicInformation $information){
+        $x = $information->newQuery()->orderBy("downloaded","desc")->take(5)->get();
+
+        if($x->count() == 0){
+            abort(404);
+        }
+
+        return response()->success("OK",JsonResponse::HTTP_OK,["most"=>$x]);
     }
 }

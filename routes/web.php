@@ -47,6 +47,10 @@ $router->group(["prefix"=>"profile"],function($router){
     $router->get("hukum","ProfileController@getHukum");
 });
 
+$router->get("statistik","PublicInformationController@getStatistic");
+$router->get("latest-info","PublicInformationController@getLatestInfo");
+$router->get("most-info","PublicInformationController@getMostInfo");
+
 $router->get("sop","PublicInformationController@getSop");
 $router->get("register-summary","PublicInformationController@registrationSummary");
 $router->get("status-permohonan","PublicInformationController@statusPermohonan");
