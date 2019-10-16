@@ -25,6 +25,7 @@ $router->group(["namespace"=>"Auth"],function($router){
 });
 
 $router->get("public-information","PublicInformationController@index");
+$router->get("dip","DipController@index");
 $router->get("type","PublicInformationController@getType");
 $router->get("sub-type","PublicInformationController@getSubType");
 $router->get("opd","PublicInformationController@getOpd");
